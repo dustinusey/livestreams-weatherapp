@@ -1,26 +1,21 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 const LocationSearch = ({hasLocation, location, grabWeather}) => {
-  const [inputVal, setInputVal] = useState("");
+  const inputVal = useRef("");
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        let value = e.target.querySelector("input");
-        console.log(value.value);
-        grabWeather(value.value);
-        setInputVal("");
+        grabWeather(inputVal.current.value);
+        e.currentTarget.reset();
       }}
       className="p-8"
     >
       <input
-        onChange={(e) => {
-          setInputVal(e.target.value);
-        }}
         className="py-2 px-5 my-5 w-full bg-gray-200 rounded-md outline-none"
         type="text"
         placeholder="Search location..."
-        value={inputVal}
+        ref={inputVal}
       />
 
       {hasLocation && (
