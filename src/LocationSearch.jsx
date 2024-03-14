@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-const LocationSearch = (props) => {
+const LocationSearch = ({hasLocation, location, grabWeather}) => {
   const [inputVal, setInputVal] = useState("");
-  const { grabWeather, hasLocation, location } = props;
   return (
     <form
       onSubmit={(e) => {
@@ -28,7 +27,7 @@ const LocationSearch = (props) => {
         <p className="text-gray-500 text-center">
           Showing weather for
           <span className="font-extrabold text-gray-600">
-            {` ${location.current.name}, ${location.current.region}`}
+            {` ${location.name}, ${location.region}`}
           </span>
         </p>
       )}

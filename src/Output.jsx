@@ -7,16 +7,16 @@ const Output = ({ current, hasLocation }) => {
         <ul className="mt-5">
           <OutputItem
             type={"Condition"}
-            value={current.current.condition.text}
+            value={current.condition.text}
           />
           <OutputItem
             type={"Humidity"}
-            value={`${current.current.humidity}%`}
+            value={`${current.humidity}%`}
           />
-          <OutputItem type={"Cloudy"} value={`${current.current.cloud}%`} />
+          <OutputItem type={"Cloudy"} value={`${current.cloud}%`} />
           <OutputItem
             type={"Feels like"}
-            value={`${current.current.feelslike_f}°`}
+            value={`${current.feelslike_f}°`}
           />
         </ul>
       )}

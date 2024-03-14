@@ -3,7 +3,7 @@ import Hero from "./Hero";
 import LocationSearch from "./LocationSearch";
 import Output from "./Output";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const options = {
   "Transfer-Encoding": "chunked",
@@ -30,8 +30,7 @@ const options = {
 };
 
 const App = () => {
-  const location = useRef("");
-  const current = useRef("");
+  const [weather, setWeather] = useState({current:{}, location: {}});
   const [hasLocation, setHasLocation] = useState(false);
 
   async function grabWeather(query) {
@@ -39,23 +38,18 @@ const App = () => {
       `http://api.weatherapi.com/v1/current.json?key=e6ab0efee14040039a9174430241403&q=${query}&aqi=no`,
       options
     );
-    location.current = data.data.location;
-    current.current = data.data.current;
-
+    setWeather(data.data);
     setHasLocation(true);
-
-    console.log(location.current);
-    console.log(current.current);
   }
   return (
     <div className="min-h-screen w-full">
-      <Hero hasLocation={hasLocation} location={location} current={current} />
+      <Hero hasLocation={hasLocation} weather={weather} />
       <LocationSearch
         hasLocation={hasLocation}
-        location={location}
+        location={weather.location}
         grabWeather={grabWeather}
       />
-      <Output hasLocation={hasLocation} current={current} />
+      <Output hasLocation={hasLocation} current={weather.current} />
     </div>
   );
 };
