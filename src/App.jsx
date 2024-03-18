@@ -30,32 +30,34 @@ const options = {
 };
 
 const App = () => {
-  const [weather, setWeather] = useState({current:{}, location: {}});
+  const [weather, setWeather] = useState({ current: {}, location: {} });
   const [query, setQuery] = useState("");
   const [hasLocation, setHasLocation] = useState(false);
-  
+
   useEffect(() => {
     let activeFetch = true;
-    axios.get(
-      `http://api.weatherapi.com/v1/current.json?key=e6ab0efee14040039a9174430241403&q=${query}&aqi=no`,
-      options
-    ).then(data => {
-      if (activeFetch) {
-        setWeather(data.data);
-        setHasLocation(true);
-      }
-    })
-    .catch(err => {
-      console.log("Error fetching and parsing data",err);
-    });
+    axios
+      .get(
+        `http://api.weatherapi.com/v1/current.json?key=e6ab0efee14040039a9174430241403&q=${query}&aqi=no`,
+        options
+      )
+      .then((data) => {
+        if (activeFetch) {
+          setWeather(data.data);
+          setHasLocation(true);
+        }
+      })
+      .catch((err) => {
+        console.log("Error fetching and parsing data", err);
+      });
     return () => {
       activeFetch = false; // if user searches again before the first search is complete, the first search will be cancelled
-    }
+    };
   }, [query]);
 
   const grabWeather = (location) => {
     setQuery(location);
-  }
+  };
 
   return (
     <div className="min-h-screen w-full">
